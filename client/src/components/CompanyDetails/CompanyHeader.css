@@ -1,0 +1,89 @@
+.CompanyInfo {
+    color: #FFFFFF;
+  }
+  
+  .company-header {
+    text-align: center;
+    margin-bottom: 5px;
+    margin: 0 25px;
+    min-width: 320px;
+  }
+  
+  .company-header #ticker {
+    margin: 2px 0;
+    font-size: 50px;
+  }
+  
+  .company-header #title {
+    margin: -14px 0 3px;
+    font-size: 19px;
+  }
+  
+  .company-details {
+    /* background-color: #282c34; */
+    border-top: 2px solid #282c34;
+    border-bottom: 2px solid #282c34;
+    margin: 0 25px;
+    min-width: 320px;
+  }
+  
+  .company-details-head {
+    /* display: inline; */
+    /* float: left; */
+    margin: 5px 0;
+  }
+  
+  .company-details-data {
+    /* text-align: right; */
+    /* float: right; */
+    margin: 5px 0;
+  }
+  
+  .description {
+    margin: 0 25px;
+    padding: 2px 20px;
+    min-width: 320px;
+  }
+  
+  .company-tags {
+    margin: 15px 25px;
+    min-width: 320px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .tags {
+    /* margin: 0 auto; */
+  }
+  
+  .tag {
+    /* margin: 0 auto; */
+    margin: 5px 10px;
+    padding: 3px 15px;
+    background-color: #282c34;
+    border-radius: 10px;
+  }
+  
+  .tag p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+  
+  .tag:hover {
+    background-color: #254481;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 10px;
+  }
+  
+  .row:hover {
+    background-color: #282c34;
+  }
+  
+  .row a:visited, a:link {
+    color: white;
+  }
