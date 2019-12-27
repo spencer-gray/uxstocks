@@ -14,6 +14,10 @@ export const formatNumber = (num) => {
     }
 }
 
+export const formatDate = (date) => {
+    return date.getFullYear() + '-' + ('0' + (date.getMonth()+1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+}
+
 export const getNWords = (str, n) => {
     if (str != null) {
         if (str.length <= n) {
@@ -21,5 +25,24 @@ export const getNWords = (str, n) => {
         } else {
             return str.split(/\s+/).slice(0,n).join(" ") + "...";
         }
+    }
+}
+
+export const addMonths = (date, months) => {
+    date.setMonth(date.getMonth() + months);
+    return date;
+  }
+
+export const findSum = (data) => {
+    var result = 0;
+
+    if (!data) {
+        return 0;
+    }
+    else {
+        for (var i = 0; i < data.length; i++) {
+            result += data[i];
+        }
+        return result;
     }
 }

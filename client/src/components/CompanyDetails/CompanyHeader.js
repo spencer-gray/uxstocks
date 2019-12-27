@@ -33,7 +33,7 @@ class CompanyInfo extends Component {
 
     //componentDidUpdate
     componentDidMount() {
-        fetch('api/v1/stock/goos/company')
+        fetch('api/v1/stock/aapl/company')
             .then(res => res.json())
             .then(companyData => this.setState({companyData}))
     }

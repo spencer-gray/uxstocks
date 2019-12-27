@@ -40,7 +40,7 @@ class App extends Component {
   timer = null
 
   componentDidMount() {
-    fetch('api/v1/stock/goos/book')
+    fetch('api/v1/stock/aapl/book')
         .then(res => res.json())
         .then(stockBook => this.setState({stockBook}))
   }
