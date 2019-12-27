@@ -31,6 +31,35 @@ router.get('/:symbol/:field', async (req, res) => {
     }
 });
 
+//  chart data
+router.get('/:symbol/chart/:timePeriod', async (req, res) => {
+    try {
+        const { symbol, timePeriod } = req.params;
+        const response = await fetch(`${process.env.IEX_API_URL}/stock/${symbol}/chart/${timePeriod}?token=${process.env.IEX_API_KEY}`)
+
+        // checking response type for invalid calls (might be fine with the catch, 
+        // this gives details on error type for developer)
+        if (response.statusText == 'Not Found') {
+            return res.status(404).json({
+                message: 'Stock Not Found'
+            })
+        } else if (response.statusText == 'Forbidden') {
+            return res.status(404).json({
+                message: 'Invalid field'
+            })
+        }
+
+        const data = await response.json();
+
+        res.json(data);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            message: 'Server error'
+        })
+    }
+});
+
 // // company info
 // router.get('/:symbol/company', async (req, res) => {
 //     try {

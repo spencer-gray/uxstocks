@@ -1,4 +1,9 @@
-.CompanyInfo {
+  
+  .card-companyInfo {
+    flex-basis: 30%;
+  }
+
+  .CompanyInfo {
     color: #FFFFFF;
   }
   

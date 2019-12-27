@@ -1,0 +1,46 @@
+.card-chart {
+    flex-basis: 60%;
+    /* max-width: 100%; */
+}
+
+.chart-header {
+    margin: 0 50px;
+    display: flex;
+    /* flex-wrap: wrap; */
+    justify-content: space-between;
+}
+
+.price {
+    color: #ffffff;
+}
+
+.price-header {
+    margin: 0 5px;
+}
+
+p {
+    margin: 5px 0;
+}
+
+.chart-buttons {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    padding-bottom: 12px;
+}
+
+.chart-footer {
+    display: flex;
+    justify-content: flex-end;
+    justify-content: space-between;
+    color: #ffffff
+}
+
+.item-name {
+    margin: 0 10px;
+}
+
+
+/* .chart {
+    min-width: 400px;
+} */
