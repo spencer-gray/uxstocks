@@ -1,43 +1,108 @@
 .card-chart {
-    flex-basis: 40%;
+    flex-basis: 50%;
     /* max-width: 100%; */
 }
 
 .chart-header {
-    margin: 0 50px;
+    margin: 0 0px;
     display: flex;
     /* flex-wrap: wrap; */
     justify-content: space-between;
 }
 
 .price {
-    color: #ffffff;
+    padding-left: 20px;
 }
 
 .price-header {
-    margin: 0 5px;
+    margin: 0 2px;
+    font-size: 32px;
+    color: #dbd8e3;
 }
 
 p {
-    margin: 5px 0;
+    margin: 2px 0;
+}
+
+.item-name {
+    margin: 0 5px;
+    font-size: 14px;
+    color: #46b5d1;
+    font-weight: bold;
+}
+
+.item-date {
+    margin: 0 5px;
+    font-size: 14px;
+    color: #766e8d;
+    font-weight: bold;
 }
 
 .chart-buttons {
     display: flex;
     justify-content: flex-end;
-    flex-direction: column;
-    padding-bottom: 12px;
+    /* flex-direction: column; */
+    padding-bottom: 10px;
+    padding-top: 25px;
+}
+
+.chart-buttons button {
+    background-color: #5c5470; /* Green background */
+    border: 1px solid #2a2438; /* Green border */
+    color: #dbd8e3; /* White text */
+    padding: 2px 5px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    width: 50px;
+    height: 30px;
+    font-weight: bold;
+}
+
+.chart-buttons button:active {
+    background : #352f44;
+    border: 1px solid #2a2438;
+}
+
+.chart-buttons button:focus {
+    background : #352f44;
+    outline: 0;
+}
+
+.chart-buttons button:first-child {
+    border-radius: 5px 0 0 5px;
+}
+
+.chart-buttons button:last-child {
+    border-radius: 0 5px 5px 0;
+}
+
+.chart-buttons button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.chart-buttons button:hover {
+    background-color: #352f44;
 }
 
 .chart-footer {
     display: flex;
     justify-content: flex-end;
     justify-content: space-between;
-    color: #ffffff
+    color: #dbd8e3
 }
 
-.item-name {
-    margin: 0 10px;
+.chart-footer .detail {
+    margin: 0 5px;
+    font-size: 14px;
+    color: #978faa;
+    font-weight: bold;
+}
+
+.chart-footer .detail-value {
+    margin: 0 5px;
+    font-size: 14px;
+    color: #dbd8e3;
+    font-weight: bold;
 }
 
 

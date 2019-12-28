@@ -14,13 +14,13 @@ const CssTextField = withStyles({
     // },
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
-        borderColor: '#ffffff',
+        borderColor: '#5c5470',
       },
       '&:hover fieldset': {
-        borderColor: '#ffffff',
+        borderColor: '#5c5470',
       },
       '&.Mui-focused fieldset': {
-        borderColor: '#ffffff',
+        borderColor: '#5c5470',
       },
     },
   },
@@ -89,10 +89,10 @@ class SearchBox extends Component {
                 onChange={this.props.onChange}
                 onKeyDown={this.props.onKeyDown}
                 fullWidth
-                InputLabelProps={{style: { textAlign: 'center', fontSize: 20, color: '#FFFFFF'}}}
+                InputLabelProps={{style: { textAlign: 'center', fontSize: 20, color: '#dbd8e3'}}}
                 inputProps={{ min: 0,
                                 maxLength: 5, 
-                                style: { textAlign: 'center', fontSize: 20, color: '#FFFFFF', textTransform: 'uppercase'},
+                                style: { textAlign: 'center', fontSize: 20, color: '#dbd8e3', textTransform: 'uppercase'},
                             }}
                 // (setup for search button)
                 // InputProps={{

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Line } from 'react-chartjs-2';
 import './Chart.css'
-import { ButtonGroup, Button } from '@material-ui/core'
 import { formatNumber, formatDate, addMonths, findSum } from '../../helper/helper.js';
 
 
@@ -12,8 +11,6 @@ class Chart extends Component{
 
     state = {
         chartData: {},
-        timeDate: this.currentDate.getHours()+":"+this.currentDate.getMinutes()+':'+this.currentDate.getSeconds(),
-        tempData: [],
         tempDates: [],
         stockBook: {},
         closeArr: [],
@@ -36,7 +33,6 @@ class Chart extends Component{
         fetch(`api/v1/stock/aapl/chart2/${this.state.chartStartDate}/${this.state.chartEndDate}`)
             .then(res => res.json())
             .then(result => this.setState({
-                tempData: result,
                 // tempDates: result.map(item => (item.label)),
                 // tempChartValues: result.map(item => (item.close)),
                 volumeArr: result.map(item => (item.volume)),
@@ -53,7 +49,6 @@ class Chart extends Component{
         fetch(`api/v1/stock/aapl/chart2/${start}/${end}`)
             .then(res => res.json())
             .then(result => this.setState({
-                tempData: result,
                 volumeArr: result.map(item => (item.volume)),
                 chartLow: Math.min.apply(null, result.map(item => (item.close))),
                 chartHigh: Math.max.apply(null, result.map(item => (item.close))),
@@ -69,7 +64,6 @@ class Chart extends Component{
     //     fetch('temp1MData.json')
     //         .then(res => res.json())
     //         .then(result => this.setState({
-    //             tempData: result,
     //             // tempDates: result.map(item => (item.label)),
     //             // tempChartValues: result.map(item => (item.close)),
     //             volumeArr: result.map(item => (item.volume)),
@@ -90,9 +84,9 @@ class Chart extends Component{
                 label:'Closing Price Per Share in USD',
                 data: data,
                 fill: false,
-                backgroundColor: "#ffffff",
-                pointBorderColor: "#55bae7",
-                borderColor: "#ffffff",
+                // backgroundColor: "#dbd8e3",
+                // pointBorderColor: "#55bae7",
+                borderColor: "#46b5d1",
                 }
             ],
         }
@@ -106,18 +100,16 @@ class Chart extends Component{
                         <h2 className='price-header'>${this.props.stockBook.quote.latestPrice}</h2>
                         <p>
                             <span className='item-name'>${this.props.stockBook.quote.change}</span>
-                            <span className='item-name'>{parseFloat(this.props.stockBook.quote.changePercent*100).toFixed(2)}%</span>
-                            <span className='item-name'>{this.state.timeDate}</span>
+                            <span className='item-name'>({parseFloat(this.props.stockBook.quote.changePercent*100).toFixed(2)}%)</span>
+                            <span className='item-date'>{this.props.stockBook.quote.latestTime}</span>
                         </p>
                     </div>
                     <div className='chart-buttons'>
-                        <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
-                            <Button onClick= {() => this.loadNewData(formatDate(addMonths(new Date(), -1)), this.state.chartEndDate)}>1M</Button>
-                            <Button onClick= {() => this.loadNewData(formatDate(addMonths(new Date(), -3)), this.state.chartEndDate)}>3M</Button>
-                            <Button onClick= {() => this.loadNewData(formatDate(addMonths(new Date(), -6)), this.state.chartEndDate)}>6M</Button>
-                            <Button onClick= {() => this.loadNewData(formatDate(addMonths(new Date(), -12)), this.state.chartEndDate)}>1Y</Button>
-                            {/* <Button onClick= {() => this.loadNewData(formatDate(addMonths(this.currentDate, -1)), this.state.chartEndDate)}>YTD</Button> */}
-                        </ButtonGroup>
+                        <button onClick= {() => this.loadNewData(formatDate(addMonths(new Date(), -1)), this.state.chartEndDate)}>1M</button>
+                        <button onClick= {() => this.loadNewData(formatDate(addMonths(new Date(), -3)), this.state.chartEndDate)}>3M</button>
+                        <button onClick= {() => this.loadNewData(formatDate(addMonths(new Date(), -6)), this.state.chartEndDate)}>6M</button>
+                        <button onClick= {() => this.loadNewData(formatDate(addMonths(new Date(), -12)), this.state.chartEndDate)}>1Y</button>
+                        <button onClick= {() => this.loadNewData(formatDate(addMonths(new Date(), -24)), this.state.chartEndDate)}>2Y</button>
                     </div>
                 </div>
                 <div className='chart'>
@@ -125,10 +117,7 @@ class Chart extends Component{
                         data={this.state.chartData}
                         options={{
                             title:{
-                                // display: this.props.displayTitle,
                                 display: false,
-                                text:'Largest Cities In ' + this.props.location,
-                                fontSize:25
                             },
                             legend:{
                                 display: false,
@@ -164,20 +153,20 @@ class Chart extends Component{
                 </div>
                 <div className='chart-footer'>
                     <p>
-                        <span className='item-name'>Volume</span>
-                        <span className='item-value'>{formatNumber(findSum(this.state.volumeArr))}</span>
+                        <span className='detail'>Volume</span>
+                        <span className='detail-value'>{formatNumber(findSum(this.state.volumeArr))}</span>
                     </p>
                     <p>
-                        <span className='item-name'>PE Ratio</span>
-                        <span className='item-value'>{this.props.stockBook.quote.peRatio}</span>
+                        <span className='detail'>PE Ratio</span>
+                        <span className='detail-value'>{this.props.stockBook.quote.peRatio}</span>
                     </p>
                     <p>
-                        <span className='item-name'>High</span>
-                        <span className='item-value'>${this.state.chartHigh}</span>
+                        <span className='detail'>High</span>
+                        <span className='detail-value'>${this.state.chartHigh}</span>
                     </p>
                     <p>
-                        <span className='item-name'>Low</span>
-                        <span className='item-value'>${this.state.chartLow}</span>
+                        <span className='detail'>Low</span>
+                        <span className='detail-value'>${this.state.chartLow}</span>
                     </p>               
                 </div>
             </div>

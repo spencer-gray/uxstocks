@@ -64,7 +64,6 @@ class App extends Component {
   triggerChange = () => {
     const { stockTicker } = this.state
     console.log(stockTicker.toUpperCase());
-    console.log(this.state.chartData);
   }
 
   render(){
