@@ -115,6 +115,7 @@ class Chart extends Component{
                 <div className='chart'>
                     <Line
                         data={this.state.chartData}
+                        height={120}
                         options={{
                             title:{
                                 display: false,

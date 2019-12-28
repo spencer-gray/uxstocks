@@ -4,7 +4,8 @@
 }
 
 .chart-header {
-    margin: 0 0px;
+    /* margin: 0 0px; */
+    padding-top: 30px;
     display: flex;
     /* flex-wrap: wrap; */
     justify-content: space-between;

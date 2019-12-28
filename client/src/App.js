@@ -3,6 +3,7 @@ import './App.css';
 import SearchBox from './components/SearchBox/SearchBox.js';
 import CompanyInfo from './components/CompanyDetails/CompanyHeader';
 import Chart from './components/Chart/Chart';
+import StockPriceHistory from './components/StockPriceHistory/StockPriceHistory';
 
 //import SearchIcon from "@material-ui/icons/Search";
 
@@ -78,6 +79,11 @@ class App extends Component {
           <div className='content'>
             <CompanyInfo />
             <Chart chartData={this.state.chartData} location="Massachusetts" legendPosition="bottom" stockBook={this.state.stockBook} />
+          </div>
+        </div>
+        <div className="row2">
+          <div className='content'>
+            <StockPriceHistory />
           </div>
         </div>
       </div>
