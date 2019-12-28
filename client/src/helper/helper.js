@@ -70,3 +70,10 @@ export const formatLargeToShortForm = (labelValue) => {
 
     : Math.abs(Number(labelValue));
 }
+
+const quarters = ['Q1', 'Q2', 'Q3', 'Q4']
+
+export const dateToQuarter = (date) => {
+  	var month = date.slice(5, 7)
+    return quarters[(Math.ceil(month / 3))-1] + ' ' + date.slice(0, 4);
+  }
