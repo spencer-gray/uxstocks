@@ -1,0 +1,6 @@
+.slash-screen {
+    color: #ffffff;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

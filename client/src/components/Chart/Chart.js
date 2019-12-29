@@ -30,7 +30,7 @@ class Chart extends Component{
     }
 
     componentDidMount() {
-        fetch(`api/v1/stock/aapl/chart2/${this.state.chartStartDate}/${this.state.chartEndDate}`)
+        fetch(`api/v1/stock/${this.props.stockTicker}/chart2/${this.state.chartStartDate}/${this.state.chartEndDate}`)
             .then(res => res.json())
             .then(result => this.setState({
                 // tempDates: result.map(item => (item.label)),
@@ -41,12 +41,11 @@ class Chart extends Component{
                 //chartSum: this.state.volumeArr.reduce((a, b) => a + b, 0),         // summing values in volumeArr
                 chartSum: findSum(this.state.volumeArr),
                 chartData: this.setChartData(result.map(item => (item.date.slice(0, 10))), result.map(item => (item.close)))
-                //item.date.slice(0, 10)
             }))
     }
 
     loadNewData(start, end) {
-        fetch(`api/v1/stock/aapl/chart2/${start}/${end}`)
+        fetch(`api/v1/stock/${this.props.stockTicker}/chart2/${start}/${end}`)
             .then(res => res.json())
             .then(result => this.setState({
                 volumeArr: result.map(item => (item.volume)),
@@ -59,22 +58,6 @@ class Chart extends Component{
             .then(this.render());
     }
 
-    // temp dataset used during development
-    // componentDidMount() {
-    //     fetch('temp1MData.json')
-    //         .then(res => res.json())
-    //         .then(result => this.setState({
-    //             // tempDates: result.map(item => (item.label)),
-    //             // tempChartValues: result.map(item => (item.close)),
-    //             volumeArr: result.map(item => (item.volume)),
-    //             chartLow: Math.min.apply(null, result.map(item => (item.close))),
-    //             chartHigh: Math.max.apply(null, result.map(item => (item.close))),
-    //             //chartSum: this.state.volumeArr.reduce((a, b) => a + b, 0),         // summing values in volumeArr
-    //             chartSum: findSum(this.state.volumeArr),
-    //             chartData: this.setChartData(result.map(item => (item.date)), result.map(item => (item.close)))
-    //         }))
-    // }
-
     setChartData(dates, data){
         return {
             // labels will be the dates
@@ -84,8 +67,6 @@ class Chart extends Component{
                 label:'Closing Price Per Share in USD',
                 data: data,
                 fill: false,
-                // backgroundColor: "#dbd8e3",
-                // pointBorderColor: "#55bae7",
                 borderColor: "#46b5d1",
                 }
             ],
