@@ -1,0 +1,46 @@
+.card-news {
+    flex-basis: 30%;
+    width: 300px;
+}
+
+.news {
+    color: #dbd8e3;
+}
+
+.news-header {
+    text-align: center;
+    margin-bottom: 5px;
+    margin: 0 25px;
+    min-width: 320px;
+    border-bottom: 2px solid #352f44;
+}
+  
+.news-header #title {
+margin: 10px 0 10px;
+font-size: 19px;
+font-weight: bold;
+}
+
+.carousel .slide {
+    background: #2a2438;
+}
+
+.news-content {
+    margin: 80px auto;
+    width: 70%;
+    color: #dbd8e3;
+}
+
+.news-description {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.news-source {
+    margin-top: 30px;
+    font-size: 10px;
+}
+
+a {
+    text-decoration: none;
+}

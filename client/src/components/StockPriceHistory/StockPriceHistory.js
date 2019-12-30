@@ -9,7 +9,7 @@ class StockPriceHistory extends Component {
     }
 
     componentDidMount() {
-        fetch('api/v1/stock/aapl/stats')
+        fetch(`api/v1/stock/${this.props.stockTicker}/stats`)
             .then(res => res.json())
             .then(historyData => this.setState({historyData}))
     }

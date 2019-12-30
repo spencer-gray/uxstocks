@@ -64,10 +64,10 @@ class Chart extends Component{
             labels: dates,
             datasets:[
                 {
-                label:'Closing Price Per Share in USD',
-                data: data,
-                fill: false,
-                borderColor: "#46b5d1",
+                    label:'Closing Price Per Share in USD',
+                    data: data,
+                    fill: false,
+                    borderColor: "#46b5d1",
                 }
             ],
         }
@@ -91,6 +91,7 @@ class Chart extends Component{
                         <button onClick= {() => this.loadNewData(formatDate(addMonths(new Date(), -6)), this.state.chartEndDate)}>6M</button>
                         <button onClick= {() => this.loadNewData(formatDate(addMonths(new Date(), -12)), this.state.chartEndDate)}>1Y</button>
                         <button onClick= {() => this.loadNewData(formatDate(addMonths(new Date(), -24)), this.state.chartEndDate)}>2Y</button>
+                        <button onClick= {() => this.loadNewData(formatDate(addMonths(new Date(), -60)), this.state.chartEndDate)}>5Y</button>
                     </div>
                 </div>
                 <div className='chart'>

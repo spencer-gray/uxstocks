@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import '../../App.css';
+import './StockContent.css';
 import CompanyInfo from '../CompanyDetails/CompanyHeader';
 import Chart from '../Chart/Chart';
 import EPSRevChart from '../EPSRevChart/EPSRevChart';
 import StockPriceHistory from '../StockPriceHistory/StockPriceHistory';
+import News from '../News/News';
 import { dateToQuarter } from '../../helper/helper'
 
 class StockContent extends Component {
@@ -12,6 +13,7 @@ class StockContent extends Component {
     this.state = {
       stockTicker: '',
       financialChartData: {},
+      newsData: [],
       successfullLoad: false,
       stockBook: {
         quote: {
@@ -34,6 +36,11 @@ class StockContent extends Component {
     fetch(`api/v1/stock/${this.props.stockTicker}/book`)
       .then(res => res.json())
       .then(stockBook => this.setState({stockBook}))
+
+    // fetching news data
+    fetch(`api/v1/stock/${this.props.stockTicker}/news`)
+      .then(res => res.json())
+      .then(newsData => this.setState({newsData}))
     
     fetch(`api/v1/stock/${this.props.stockTicker}/financial/income-statement`)
       .then(res => res.json())
@@ -94,6 +101,10 @@ class StockContent extends Component {
             ) : (
               void 0
             )}
+            {/* Carousal component required the length to be > 0 for autoplay functionality to kick in*/}
+            {(this.state.newsData.length > 0) ? (
+              <News newsData={this.state.newsData}/>
+            ) : null}
           </div>
         </div>
       </div>
