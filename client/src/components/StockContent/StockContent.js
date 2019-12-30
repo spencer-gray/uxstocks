@@ -5,6 +5,7 @@ import Chart from '../Chart/Chart';
 import EPSRevChart from '../EPSRevChart/EPSRevChart';
 import StockPriceHistory from '../StockPriceHistory/StockPriceHistory';
 import News from '../News/News';
+import IncomeStatement from '../IncomeStatement/IncomeStatement';
 import { dateToQuarter } from '../../helper/helper'
 
 class StockContent extends Component {
@@ -14,6 +15,8 @@ class StockContent extends Component {
       stockTicker: '',
       financialChartData: {},
       newsData: [],
+      yearlyIncomeStatementData: {},
+      keyStats: {},
       successfullLoad: false,
       stockBook: {
         quote: {
@@ -41,7 +44,16 @@ class StockContent extends Component {
     fetch(`api/v1/stock/${this.props.stockTicker}/news`)
       .then(res => res.json())
       .then(newsData => this.setState({newsData}))
+
+    // fetching yearly income statement data
+    fetch(`api/v1/stock/${this.props.stockTicker}/financial/income-statement/yearly`)
+      .then(res => res.json())
+      .then(yearlyIncomeStatementData => this.setState({yearlyIncomeStatementData}))
+      .catch( err => {
+        console.log(err);
+      })
     
+    // fetching quarterly income statement data
     fetch(`api/v1/stock/${this.props.stockTicker}/financial/income-statement`)
       .then(res => res.json())
       .then(result => this.setState({
@@ -52,6 +64,14 @@ class StockContent extends Component {
         ),
         successfullLoad: true,
       }))
+      .catch( err => {
+        console.log(err);
+      })
+
+    // fetching yearly keys statistics
+    fetch(`api/v1/stock/${this.props.stockTicker}/financial/key-stats`)
+      .then(res => res.json())
+      .then(keyStats => this.setState({keyStats}))
       .catch( err => {
         console.log(err);
       })
@@ -105,6 +125,15 @@ class StockContent extends Component {
             {(this.state.newsData.length > 0) ? (
               <News newsData={this.state.newsData}/>
             ) : null}
+          </div>
+        </div>
+        <div className="row3">
+          <div className='content'>
+            {this.state.successfullLoad ? (
+                <IncomeStatement yearlyIncomeStatementData={this.state.yearlyIncomeStatementData} keyStats={this.state.keyStats}/>
+              ) : (
+                void 0
+            )}
           </div>
         </div>
       </div>

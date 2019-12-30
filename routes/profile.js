@@ -48,7 +48,7 @@ router.get('/:symbol/chart2/:startDate/:endDate', async (req, res) => {
     }
 });
 
-// requesting financial income statement data
+// quarterly financial income statement data
 router.get('/:symbol/financial/income-statement', async (req, res) => {
     try {
         const { symbol } = req.params;
@@ -57,6 +57,40 @@ router.get('/:symbol/financial/income-statement', async (req, res) => {
         const data = await response.json();
 
         res.json(data.financials);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            message: 'Server error'
+        })
+    }
+});
+
+// yearly financial income statement data
+router.get('/:symbol/financial/income-statement/yearly', async (req, res) => {
+    try {
+        const { symbol } = req.params;
+        const response = await fetch(`${process.env.FINANCIAL_MODELING_API_URL}/financials/income-statement/${symbol}`)
+
+        const data = await response.json();
+
+        res.json(data.financials[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            message: 'Server error'
+        })
+    }
+});
+
+// yearly key statistics
+router.get('/:symbol/financial/key-stats', async (req, res) => {
+    try {
+        const { symbol } = req.params;
+        const response = await fetch(`${process.env.FINANCIAL_MODELING_API_URL}/company-key-metrics/${symbol}`)
+
+        const data = await response.json();
+
+        res.json(data.metrics[0]);
     } catch (err) {
         console.error(err);
         res.status(500).json({

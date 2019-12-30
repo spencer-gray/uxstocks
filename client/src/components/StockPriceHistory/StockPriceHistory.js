@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './StockPriceHistory.css'
-import { formatLargeToShortForm, formatNumber, getNWords} from '../../helper/helper.js';  
+import { formatLargeToShortForm, formatNumber} from '../../helper/helper.js';  
 
 class StockPriceHistory extends Component {
 
@@ -62,22 +62,6 @@ class StockPriceHistory extends Component {
                                     <p className="history-details-head">Market Capitalization</p>
                                     <p className="history-details-data">${formatLargeToShortForm(this.state.historyData.marketcap).toString()}</p>
                                 </div>
-                            </div>
-                            <div className='description'>
-                                <small>{getNWords(this.state.historyData.description, 20)}</small>
-                            </div>
-                            <div>
-
-                            </div>
-                            <div className='company-tags'>
-                                    {   
-                                        // checks if company data tags exist to avoid initial loading undefined error
-                                        this.state.historyData.tags && this.state.historyData.tags.map(function (tags, i) {
-                                            return (
-                                                <div className='tag' key={i}><p>{tags}</p></div>
-                                            );
-                                        })
-                                    }
                             </div>
                 </div>
             </div>

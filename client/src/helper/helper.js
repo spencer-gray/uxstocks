@@ -52,21 +52,21 @@ export const formatLargeToShortForm = (labelValue) => {
     // Billions
     return Math.abs(Number(labelValue)) >= 1.0e+12
 
-    ? parseFloat(Math.abs(Number(labelValue)) / 1.0e+12).toFixed(1) + "T"
+    ? parseFloat(Math.abs(Number(labelValue)) / 1.0e+12).toFixed(2) + "T"
 
     // Billions
     : Math.abs(Number(labelValue)) >= 1.0e+9
 
-    ? parseFloat(Math.abs(Number(labelValue)) / 1.0e+9).toFixed(1) + "B"
+    ? parseFloat(Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + "B"
 
     // Millions 
     : Math.abs(Number(labelValue)) >= 1.0e+6
 
-    ? parseFloat(Math.abs(Number(labelValue)) / 1.0e+6).toFixed(1) + "M"
+    ? parseFloat(Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + "M"
     // Thousands
     : Math.abs(Number(labelValue)) >= 1.0e+3
 
-    ? parseFloat(Math.abs(Number(labelValue)) / 1.0e+3).toFixed(1) + "K"
+    ? parseFloat(Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + "K"
 
     : Math.abs(Number(labelValue));
 }
