@@ -12,7 +12,6 @@ class Chart extends Component{
     state = {
         chartData: {},
         tempDates: [],
-        stockBook: {},
         closeArr: [],
         volumeArr: [],
         chartLow: null,
@@ -30,6 +29,16 @@ class Chart extends Component{
     }
 
     componentDidMount() {
+        this.fetchData();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.stockTicker !== prevProps.stockTicker) {
+            this.fetchData();
+        }
+    }
+
+    fetchData() {
         fetch(`api/v1/stock/${this.props.stockTicker}/chart2/${this.state.chartStartDate}/${this.state.chartEndDate}`)
             .then(res => res.json())
             .then(result => this.setState({

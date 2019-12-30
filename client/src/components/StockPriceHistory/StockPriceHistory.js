@@ -9,10 +9,22 @@ class StockPriceHistory extends Component {
     }
 
     componentDidMount() {
+        this.fetchData();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.stockTicker !== prevProps.stockTicker) {
+            this.fetchData();
+        }
+    }
+
+    fetchData() {
         fetch(`api/v1/stock/${this.props.stockTicker}/stats`)
             .then(res => res.json())
             .then(historyData => this.setState({historyData}))
     }
+
+    
 
     render(){
         return (

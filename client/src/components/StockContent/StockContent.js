@@ -35,7 +35,7 @@ class StockContent extends Component {
     };
   }
 
-  componentDidMount() {
+  fetchData() {
     fetch(`api/v1/stock/${this.props.stockTicker}/book`)
       .then(res => res.json())
       .then(stockBook => this.setState({stockBook}))
@@ -75,6 +75,18 @@ class StockContent extends Component {
       .catch( err => {
         console.log(err);
       })
+  }
+
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.stockTicker !== prevProps.stockTicker) {
+      console.log('updated stock info...');
+      this.fetchData();
+    }
   }
 
   setFinancialChartData(dates, epsData, revData){
@@ -134,6 +146,7 @@ class StockContent extends Component {
               ) : (
                 void 0
             )}
+            
           </div>
         </div>
       </div>

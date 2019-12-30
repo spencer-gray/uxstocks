@@ -9,6 +9,16 @@ class CompanyInfo extends Component {
     }
 
     componentDidMount() {
+        this.fetchData();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.stockTicker !== prevProps.stockTicker) {
+            this.fetchData();
+        }
+    }
+
+    fetchData() {
         fetch(`api/v1/stock/${this.props.stockTicker}/company`)
             .then(res => res.json())
             .then(companyData => this.setState({companyData}))
