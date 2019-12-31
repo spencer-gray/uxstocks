@@ -7,6 +7,8 @@ import StockPriceHistory from '../StockPriceHistory/StockPriceHistory';
 import News from '../News/News';
 import IncomeStatement from '../IncomeStatement/IncomeStatement';
 import { dateToQuarter } from '../../helper/helper'
+import Ratings from '../Ratings/Ratings';
+import PlaceholderImage from '../PlaceholderImage/PlaceholderImage';
 
 class StockContent extends Component {
   constructor() {
@@ -17,7 +19,19 @@ class StockContent extends Component {
       newsData: [],
       yearlyIncomeStatementData: {},
       keyStats: {},
+      ratings: {
+        rating: {},
+        ratingDetails: {
+          'P/B': {},
+          'ROA': {},
+          'DCF': {},
+          'P/E': {},
+          'ROE': {},
+          'D/E': {}
+        }
+      },
       successfullLoad: false,
+      ratingLoaded: false,
       stockBook: {
         quote: {
           high: null,
@@ -75,6 +89,37 @@ class StockContent extends Component {
       .catch( err => {
         console.log(err);
       })
+
+    // fetching rating data
+    fetch(`api/v1/stock/${this.props.stockTicker}/company/rating`)
+      .then(res => {
+        if(!res.ok) {
+          // reset rating data ()
+          this.setState({
+            ratingLoaded: false,
+            ratings: {
+              rating: {},
+              ratingDetails: {
+                'P/B': {},
+                'ROA': {},
+                'DCF': {},
+                'P/E': {},
+                'ROE': {},
+                'D/E': {}
+              }
+            }
+          })
+          throw new Error(res.status);
+        }
+        else return res.json();
+      })
+      .then(ratings => this.setState({
+        ratings: ratings,
+        ratingLoaded: true
+      }))
+      .catch( err => {
+          console.log(err);
+      })
   }
 
   componentDidMount() {
@@ -82,9 +127,7 @@ class StockContent extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // Typical usage (don't forget to compare props):
     if (this.props.stockTicker !== prevProps.stockTicker) {
-      console.log('updated stock info...');
       this.fetchData();
     }
   }
@@ -141,12 +184,15 @@ class StockContent extends Component {
         </div>
         <div className="row3">
           <div className='content'>
+            {this.state.ratingLoaded ? (
+                <Ratings ratings={this.state.ratings}/>
+              ) : null}
+            {this.state.successfullLoad ? (
+                <PlaceholderImage />
+              ) : null}
             {this.state.successfullLoad ? (
                 <IncomeStatement yearlyIncomeStatementData={this.state.yearlyIncomeStatementData} keyStats={this.state.keyStats}/>
-              ) : (
-                void 0
-            )}
-            
+              ) : null}
           </div>
         </div>
       </div>

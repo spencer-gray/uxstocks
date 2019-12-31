@@ -31,7 +31,7 @@ router.get('/:symbol/:field', async (req, res) => {
     }
 });
 
-// Chart Data v2
+// Chart Data
 router.get('/:symbol/chart2/:startDate/:endDate', async (req, res) => {
     try {
         const { symbol, startDate, endDate } = req.params;
@@ -91,6 +91,32 @@ router.get('/:symbol/financial/key-stats', async (req, res) => {
         const data = await response.json();
 
         res.json(data.metrics[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            message: 'Server error'
+        })
+    }
+});
+
+// retrieving ratings data
+router.get('/:symbol/company/rating', async (req, res) => {
+    try {
+        const { symbol } = req.params;
+        const response = await fetch(`${process.env.FINANCIAL_MODELING_API_URL}/company/rating/${symbol}`)
+
+        const data = await response.json();
+
+        // error catch if data is empty
+        if(Object.getOwnPropertyNames(data).length === 0) {
+            return res.status(404).json({
+                message: 'Empty rating'
+            })
+        }
+        else {
+            res.json(data);
+        }
+
     } catch (err) {
         console.error(err);
         res.status(500).json({
