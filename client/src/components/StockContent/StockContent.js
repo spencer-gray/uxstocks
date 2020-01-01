@@ -9,6 +9,7 @@ import IncomeStatement from '../IncomeStatement/IncomeStatement';
 import { dateToQuarter } from '../../helper/helper'
 import Ratings from '../Ratings/Ratings';
 import PlaceholderImage from '../PlaceholderImage/PlaceholderImage';
+import NotFound from '../NotFound/NotFound';
 
 class StockContent extends Component {
   constructor() {
@@ -30,6 +31,7 @@ class StockContent extends Component {
           'D/E': {}
         }
       },
+      isLoading: true,
       successfullLoad: false,
       ratingLoaded: false,
       stockBookLoaded: false,
@@ -88,8 +90,10 @@ class StockContent extends Component {
           result.slice(0, 4).map(item => ((item["Revenue Growth"]*100).toFixed(2))),
         ),
         successfullLoad: true,
-      }))
+        isLoading: false
+        }))
       .catch( err => {
+        this.setState({isLoading: false});
         console.log(err);
       })
 
@@ -210,7 +214,10 @@ class StockContent extends Component {
             </div>
           </div>
         </div>
-        ) : null        
+        ) : (
+            this.state.isLoading ? null :
+            <NotFound stockTicker={this.props.stockTicker}/>  // else
+          )   
     );
   }
 }

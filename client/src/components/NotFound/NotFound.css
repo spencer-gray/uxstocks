@@ -1,0 +1,15 @@
+.not-found {
+    margin-top: 5%;
+    color: #dbd8e3;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.not-found-content {
+    text-align: center;
+}
+
+.not-found-content img {
+    width: 180px;
+}
