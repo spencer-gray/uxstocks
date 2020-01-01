@@ -131,4 +131,20 @@ router.get('/:symbol/company/rating', async (req, res) => {
     }
 });
 
+// initial splash page data
+router.get('/landing', async (req, res) => {
+    try {
+        const response = await fetch(`${process.env.IEX_API_URL}/stock/market/batch?symbols=aapl,tm,goos,ge,googl,tu,iii,d&types=quote&token=${process.env.IEX_API_KEY}`)
+
+        const data = await response.json();
+
+        res.json(data);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            message: 'Server error'
+        })
+    }
+});
+
 module.exports = router;

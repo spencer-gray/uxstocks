@@ -1,6 +1,29 @@
 .slash-screen {
     color: #dbd8e3;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    width: 50%;
+    margin: 200px auto;
 }
+
+.landing-item {
+    margin: 0 auto;
+}
+
+#symbol {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+#splash-name {
+    color: #5c5470;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.landing-values p { 
+    margin: 0 5px;
+    display: inline;
+    font-size: 18px;
+    color: #5c5470;
+    font-weight: 1px;
+    font-weight: 600;
+ }
