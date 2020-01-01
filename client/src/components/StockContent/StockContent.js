@@ -32,6 +32,7 @@ class StockContent extends Component {
       },
       successfullLoad: false,
       ratingLoaded: false,
+      stockBookLoaded: false,
       stockBook: {
         quote: {
           high: null,
@@ -51,8 +52,18 @@ class StockContent extends Component {
 
   fetchData() {
     fetch(`api/v1/stock/${this.props.stockTicker}/book`)
-      .then(res => res.json())
-      .then(stockBook => this.setState({stockBook}))
+      .then(res => {
+        if(res.status === 404) {
+            this.setState({stockBookLoaded: false})
+        }
+        else {
+          res.json()
+            .then(stockBook => this.setState({
+              stockBook: stockBook,
+              stockBookLoaded: true
+            }))
+        }
+      })
 
     // fetching news data
     fetch(`api/v1/stock/${this.props.stockTicker}/news`)
@@ -87,7 +98,8 @@ class StockContent extends Component {
       .then(res => res.json())
       .then(keyStats => this.setState({keyStats}))
       .catch( err => {
-        console.log(err);
+        // Rating data not found
+        //console.log(err);
       })
 
     // fetching rating data
@@ -118,7 +130,8 @@ class StockContent extends Component {
         ratingLoaded: true
       }))
       .catch( err => {
-          console.log(err);
+          // Rating data not found
+          //console.log(err);
       })
   }
 
@@ -158,45 +171,46 @@ class StockContent extends Component {
 
   render(){
     return (
-      <div>
-        <div className="row1">
-          <div className='content'>
-            <CompanyInfo stockTicker={this.props.stockTicker}/>
-            <Chart stockBook={this.state.stockBook} stockTicker={this.props.stockTicker}/>
+      // setup if conditional here, if main data doesn't get loaded, display stock not found page...
+      this.state.stockBookLoaded ? (
+        <div>
+          <div className="row1">
+            <div className='content'>
+              <CompanyInfo stockTicker={this.props.stockTicker}/>
+              <Chart stockBook={this.state.stockBook} stockTicker={this.props.stockTicker}/>
+            </div>
           </div>
-        </div>
-        <div className="row2">
-          <div className='content'>
-            <StockPriceHistory stockTicker={this.props.stockTicker}/>
-            {/* <EPSRevChart financialChartData={this.state.financialChartData}/> */}
+          <div className="row2">
+            <div className='content'>
+              <StockPriceHistory stockTicker={this.props.stockTicker}/>
 
-            {/* Conditional for EPS / Rev Chart when reqd data cannot be found in api*/}
-            {this.state.successfullLoad ? (
-              <EPSRevChart financialChartData={this.state.financialChartData}/>
-            ) : (
-              void 0
-            )}
-            {/* Carousal component required the length to be > 0 for autoplay functionality to kick in*/}
-            {(this.state.newsData.length > 0) ? (
-              <News newsData={this.state.newsData}/>
-            ) : null}
+              {/* Conditional for EPS / Rev Chart when reqd data cannot be found in api*/}
+              {this.state.successfullLoad ? (
+                <EPSRevChart financialChartData={this.state.financialChartData}/>
+              ) : (
+                void 0
+              )}
+              {/* Carousal component required the length to be > 0 for autoplay functionality to kick in*/}
+              {(this.state.newsData.length > 0) ? (
+                <News newsData={this.state.newsData}/>
+              ) : null}
+            </div>
+          </div>
+          <div className="row3">
+            <div className='content'>
+              {this.state.ratingLoaded ? (
+                  <Ratings ratings={this.state.ratings}/>
+                ) : null}
+              {this.state.successfullLoad ? (
+                  <PlaceholderImage />
+                ) : null}
+              {this.state.successfullLoad ? (
+                  <IncomeStatement yearlyIncomeStatementData={this.state.yearlyIncomeStatementData} keyStats={this.state.keyStats}/>
+                ) : null}
+            </div>
           </div>
         </div>
-        <div className="row3">
-          <div className='content'>
-            {this.state.ratingLoaded ? (
-                <Ratings ratings={this.state.ratings}/>
-              ) : null}
-            {this.state.successfullLoad ? (
-                <PlaceholderImage />
-              ) : null}
-            {this.state.successfullLoad ? (
-                <IncomeStatement yearlyIncomeStatementData={this.state.yearlyIncomeStatementData} keyStats={this.state.keyStats}/>
-              ) : null}
-          </div>
-        </div>
-      </div>
-        
+        ) : null        
     );
   }
 }

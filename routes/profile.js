@@ -36,10 +36,16 @@ router.get('/:symbol/chart2/:startDate/:endDate', async (req, res) => {
     try {
         const { symbol, startDate, endDate } = req.params;
         const response = await fetch(`${process.env.TIINGO_API_URL}/daily/${symbol}/prices?token=${process.env.TIINGO_API_KEY}&startDate=${startDate}&endDate=${endDate}`)
+        
+        if (response.status == 404) {
+            return res.status(404).json({
+                message: 'Stock Not Found'
+            })
+        } else  {
+            const data = await response.json();
 
-        const data = await response.json();
-
-        res.json(data);
+            res.json(data);
+        }
     } catch (err) {
         console.error(err);
         res.status(500).json({

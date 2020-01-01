@@ -10,6 +10,7 @@ class Chart extends Component{
     prevMonth = addMonths(new Date(), -1)
 
     state = {
+        successfullLoad: false,
         chartData: {},
         tempDates: [],
         closeArr: [],
@@ -40,17 +41,22 @@ class Chart extends Component{
 
     fetchData() {
         fetch(`api/v1/stock/${this.props.stockTicker}/chart2/${this.state.chartStartDate}/${this.state.chartEndDate}`)
-            .then(res => res.json())
-            .then(result => this.setState({
-                // tempDates: result.map(item => (item.label)),
-                // tempChartValues: result.map(item => (item.close)),
-                volumeArr: result.map(item => (item.volume)),
-                chartLow: Math.min.apply(null, result.map(item => (item.close))),
-                chartHigh: Math.max.apply(null, result.map(item => (item.close))),
-                //chartSum: this.state.volumeArr.reduce((a, b) => a + b, 0),         // summing values in volumeArr
-                chartSum: findSum(this.state.volumeArr),
-                chartData: this.setChartData(result.map(item => (item.date.slice(0, 10))), result.map(item => (item.close)))
-            }))
+            .then(res => {
+                if(res.status === 404) {
+                    this.setState({successfullLoad: false});
+                }
+                else {res.json()
+                    .then(result => this.setState({
+                            successfullLoad: true,
+                            volumeArr: result.map(item => (item.volume)),
+                            chartLow: Math.min.apply(null, result.map(item => (item.close))),
+                            chartHigh: Math.max.apply(null, result.map(item => (item.close))),
+                            //chartSum: this.state.volumeArr.reduce((a, b) => a + b, 0),         // summing values in volumeArr
+                            chartSum: findSum(this.state.volumeArr),
+                            chartData: this.setChartData(result.map(item => (item.date.slice(0, 10))), result.map(item => (item.close)))
+                    }))
+                }
+            })
     }
 
     loadNewData(start, end) {
@@ -162,6 +168,7 @@ class Chart extends Component{
                     </p>               
                 </div>
             </div>
+            
         )
     }
 }
