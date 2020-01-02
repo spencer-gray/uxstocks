@@ -50,7 +50,7 @@ class App extends Component {
 
   render(){
     return (
-      <div>
+      <div className='page-container'>
         <SearchBox 
           stockTicker={this.state.stockTicker}
           onChange={this.handleChange}
@@ -63,7 +63,10 @@ class App extends Component {
           <StockContent stockTicker={this.state.stockTicker}/>
         )}
 
-        {/* <StockContent /> */}
+        <div className="footer">
+          <p>Created by <a href='https://github.com/spencer-gray' target="_blank" rel="noopener noreferrer">Spencer Gray</a> &copy; 2020</p>
+          <p>Data provided by <a href='https://iexcloud.io/' target="_blank" rel="noopener noreferrer">IEX Cloud</a></p>
+        </div>
       </div>
         
     );
