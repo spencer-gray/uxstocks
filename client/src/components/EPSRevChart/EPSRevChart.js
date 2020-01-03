@@ -7,12 +7,12 @@ class EPSRevChart extends Component {
         return (
             <div className='card card-financialChart'>
                 <div className='FinancialChart'>
-                        <div className='history-header'>
+                        <div className='financialChart-header'>
                             <p id='title'>EPS / Revenue Growth</p>
                         </div>
                         <Line 
                             data={this.props.financialChartData} 
-                            height={260}
+                            height={300}
                             options={{
                                 title:{
                                     display: false,

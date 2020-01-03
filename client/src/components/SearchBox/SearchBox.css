@@ -2,6 +2,7 @@
     margin: 0 auto;
     padding: 3%;
     width: 30%;
+    min-width: 250px;
 }
 
 .searchBox input {

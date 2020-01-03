@@ -1,6 +1,7 @@
 .slash-screen {
     color: #dbd8e3;
     width: 50%;
+    min-width: 300px;
     margin: 200px auto;
 }
 

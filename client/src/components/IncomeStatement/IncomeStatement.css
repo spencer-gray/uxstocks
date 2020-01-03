@@ -1,6 +1,5 @@
 .card-incomeInfo {
     flex-basis: 30%;
-    min-width: 320px;
   }
 
 .IncomeInfo {
@@ -10,7 +9,7 @@
 .income-header {
     text-align: center;
     margin-bottom: 5px;
-    margin: 10px 25px;
+    margin: 10px 0px;
 }
 
 .income-header #title {
@@ -21,7 +20,7 @@
 
 .income-details {
     margin: 0 25px;
-    min-width: 320px;
+    min-width: 280px;
     font-size: 15px;
 }
 

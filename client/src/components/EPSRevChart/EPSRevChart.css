@@ -1,8 +1,37 @@
 
+.card-financialChart {
+    flex-basis: 20%;
+    /* min-width: 300px; */
+}
+
 .FinancialChart {
     color: #dbd8e3;
   }
 
-.card-financialChart {
-    flex-basis: 20%;
+.financialChart-header {
+    text-align: center;
+    margin: 0 25px 15px;
+    border-bottom: 2px solid #352f44;
+  }
+  
+.financialChart-header #title {
+    margin: 10px 0 10px;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.financialChart-header {
+    text-align: center;
+    font-size: 19px;
+    font-weight: bold;
+}
+
+@media (max-width: 400px) {
+
+    .card-financialChart canvas {
+        width:300px !important;
+      }
+    .card-financialChart {
+        min-width: 300px;
+    }
 }

@@ -1,17 +1,20 @@
   
   .card-companyInfo {
-    flex-basis: 20%;
+    flex-basis: 30%;
+    min-width: 300px;
+    /* width: 100%; */
+    /* min-width: 320px; */
   }
 
   .CompanyInfo {
     color: #dbd8e3;
+    width: 100%;
   }
   
   .company-header {
     text-align: center;
     margin-bottom: 5px;
     margin: 0 25px;
-    min-width: 320px;
   }
   
   .company-header #ticker {
@@ -28,8 +31,7 @@
     /* background-color: #282c34; */
     border-top: 2px solid #352f44;
     border-bottom: 2px solid #352f44;
-    margin: 0 25px;
-    min-width: 320px;
+    margin: 0 0px;
     font-size: 15px;
   }
   
@@ -37,6 +39,7 @@
     /* display: inline; */
     /* float: left; */
     margin: 5px 0;
+    padding-right: 10px;
     color: #978faa;
   }
   
@@ -44,17 +47,19 @@
     /* text-align: right; */
     /* float: right; */
     margin: 5px 0;
+    /* margin-left: auto; */
+    text-align: right;
   }
   
   .description {
-    margin: 0 25px;
+    margin: 0 5px;
     padding: 2px 20px;
-    min-width: 320px;
+    /* min-width: 320px; */
   }
   
   .company-tags {
-    margin: 15px 25px;
-    min-width: 320px;
+    /* margin: 15px 25px; */
+    /* min-width: 320px; */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -84,6 +89,7 @@
   .row {
     display: flex;
     justify-content: space-between;
+    /* flex-wrap: wrap; */
     padding: 0px 10px;
   }
   
@@ -94,3 +100,10 @@
   .row a:visited, a:link {
     color: #dbd8e3;
   }
+
+  /* @media (max-width: 400px) {
+
+    .company-details {
+      font-size: 13px;
+    }
+} */

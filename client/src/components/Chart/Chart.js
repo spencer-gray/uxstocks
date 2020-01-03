@@ -112,7 +112,7 @@ class Chart extends Component{
                 <div className='chart'>
                     <Line
                         data={this.state.chartData}
-                        height={120}
+                        height={280}
                         options={{
                             title:{
                                 display: false,
@@ -146,26 +146,27 @@ class Chart extends Component{
                                     radius: 0
                                 }
                             },
+                            maintainAspectRatio: false
                         }}
                     />
                 </div>
                 <div className='chart-footer'>
-                    <p>
+                    <div className='chart-footer-item'>
                         <span className='detail'>Volume</span>
                         <span className='detail-value'>{formatNumber(findSum(this.state.volumeArr))}</span>
-                    </p>
-                    <p>
+                    </div>
+                    <div className='chart-footer-item'>
                         <span className='detail'>PE Ratio</span>
                         <span className='detail-value'>{this.props.stockBook.quote.peRatio}</span>
-                    </p>
-                    <p>
+                    </div>
+                    <div className='chart-footer-item'>
                         <span className='detail'>High</span>
                         <span className='detail-value'>${this.state.chartHigh}</span>
-                    </p>
-                    <p>
+                    </div>
+                    <div className='chart-footer-item'>
                         <span className='detail'>Low</span>
                         <span className='detail-value'>${this.state.chartLow}</span>
-                    </p>               
+                    </div>               
                 </div>
             </div>
             

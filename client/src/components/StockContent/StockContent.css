@@ -3,3 +3,11 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+
+.row3 {
+    flex-wrap: wrap-reverse;
+}
+
+.card {
+    margin: 20px 20px;
+}

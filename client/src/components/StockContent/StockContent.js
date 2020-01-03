@@ -201,12 +201,12 @@ class StockContent extends Component {
             </div>
           </div>
           <div className="row3">
-            <div className='content'>
-              {this.state.ratingLoaded ? (
-                  <Ratings ratings={this.state.ratings}/>
-                ) : null}
+            <div className='content row3'>
               {this.state.successfullLoad ? (
                   <PlaceholderImage />
+                ) : null}
+              {this.state.ratingLoaded ? (
+                  <Ratings ratings={this.state.ratings}/>
                 ) : null}
               {this.state.successfullLoad ? (
                   <IncomeStatement yearlyIncomeStatementData={this.state.yearlyIncomeStatementData} keyStats={this.state.keyStats}/>
