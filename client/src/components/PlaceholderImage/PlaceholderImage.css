@@ -1,15 +1,12 @@
 .card-placeholder {
     flex-basis: 30%;
-    min-width: 300px;
-}
-
-.placeholder {
     display: flex;
-    flex: center;
     justify-content: center;
-    height: 100%;
+    align-items: center;
 }
 
 .placeholder img {
     width: 150px;
+    display: block;
+    margin: 0 auto;
 }
