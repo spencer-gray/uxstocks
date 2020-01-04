@@ -4,10 +4,12 @@
 }
 
 .placeholder {
-    /* height: 200px;
-    width: 200px; */
     display: flex;
     flex: center;
     justify-content: center;
     height: 100%;
+}
+
+.placeholder img {
+    width: 150px;
 }

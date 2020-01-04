@@ -152,21 +152,21 @@ class Chart extends Component{
                 </div>
                 <div className='chart-footer'>
                     <div className='chart-footer-item'>
+                        <span className='detail'>Low</span>
+                        <span className='detail-value'>${this.state.chartLow}</span>
+                    </div> 
+                    <div className='chart-footer-item'>
+                        <span className='detail'>High</span>
+                        <span className='detail-value'>${this.state.chartHigh}</span>
+                    </div>
+                    <div className='chart-footer-item'>
                         <span className='detail'>Volume</span>
                         <span className='detail-value'>{formatNumber(findSum(this.state.volumeArr))}</span>
                     </div>
                     <div className='chart-footer-item'>
                         <span className='detail'>PE Ratio</span>
                         <span className='detail-value'>{this.props.stockBook.quote.peRatio}</span>
-                    </div>
-                    <div className='chart-footer-item'>
-                        <span className='detail'>High</span>
-                        <span className='detail-value'>${this.state.chartHigh}</span>
-                    </div>
-                    <div className='chart-footer-item'>
-                        <span className='detail'>Low</span>
-                        <span className='detail-value'>${this.state.chartLow}</span>
-                    </div>               
+                    </div>              
                 </div>
             </div>
             

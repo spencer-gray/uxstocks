@@ -12,7 +12,7 @@ class EPSRevChart extends Component {
                         </div>
                         <Line 
                             data={this.props.financialChartData} 
-                            height={300}
+                            height={250}
                             options={{
                                 title:{
                                     display: false,

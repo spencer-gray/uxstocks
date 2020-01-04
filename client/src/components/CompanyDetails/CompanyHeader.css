@@ -2,8 +2,6 @@
   .card-companyInfo {
     flex-basis: 30%;
     min-width: 300px;
-    /* width: 100%; */
-    /* min-width: 320px; */
   }
 
   .CompanyInfo {
@@ -23,12 +21,11 @@
   }
   
   .company-header #title {
-    margin: -14px 0 3px;
+    margin: -10px 0 5px;
     font-size: 19px;
   }
   
   .company-details {
-    /* background-color: #282c34; */
     border-top: 2px solid #352f44;
     border-bottom: 2px solid #352f44;
     margin: 0 0px;
@@ -36,41 +33,38 @@
   }
   
   .company-details-head {
-    /* display: inline; */
-    /* float: left; */
     margin: 5px 0;
     padding-right: 10px;
     color: #978faa;
   }
   
   .company-details-data {
-    /* text-align: right; */
-    /* float: right; */
     margin: 5px 0;
-    /* margin-left: auto; */
     text-align: right;
   }
   
   .description {
-    margin: 0 5px;
+    margin: 0 auto;
     padding: 2px 20px;
-    /* min-width: 320px; */
+    color: #a7a0bb;
   }
+
+  .description small {
+    margin: 0 auto;
+  }
+/* 
+  .description small {
+    margin
+  } */
   
   .company-tags {
-    /* margin: 15px 25px; */
-    /* min-width: 320px; */
+    margin-top: 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
   
-  .tags {
-    /* margin: 0 auto; */
-  }
-  
   .tag {
-    /* margin: 0 auto; */
     margin: 5px 10px;
     padding: 3px 15px;
     background-color: #352f44;

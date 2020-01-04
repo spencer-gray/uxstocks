@@ -35,3 +35,7 @@
         min-width: 300px;
     }
 }
+
+.chartjs-render-monitor {
+    min-height: 300px;
+}
