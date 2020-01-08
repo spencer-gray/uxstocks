@@ -74,6 +74,7 @@
   .tag p {
     font-size: 14px;
     margin: 5px 0;
+    font-weight: 500;
   }
   
   .tag:hover {

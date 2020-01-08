@@ -31,8 +31,9 @@ font-weight: bold;
     text-decoration: none;
 }
 
-.news-content .news-link {
+.news-content a:visited, a:link {
     text-decoration: none;
+    color: #dbd8e3;
 }
 
 .news-description {

@@ -53,6 +53,7 @@ class StockContent extends Component {
   }
 
   fetchData() {
+
     fetch(`api/v1/stock/${this.props.stockTicker}/book`)
       .then(res => {
         if(res.status === 404) {

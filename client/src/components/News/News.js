@@ -14,7 +14,7 @@ class News extends Component {
                     <div className='news-content'>
                     <Carousel autoPlay infiniteLoop showArrows={false} showThumbs={false} showStatus={false} showIndicators={false} interval={7000} transitionTime={2000} swipeable={false}>
                         {this.props.newsData.map( (data, i) =>
-                            <a className='news-link' key={i} href={data.url}>
+                            <a className='news-link' key={i} href={data.url} target="_blank" rel="noopener noreferrer">
                                 <div className='news-item'>
                                     <div className="news-description">
                                         <p>{data.headline}</p>
