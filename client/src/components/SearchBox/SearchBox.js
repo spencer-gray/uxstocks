@@ -10,7 +10,6 @@ class SearchBox extends Component {
     super();
     this.state = {
       stockTicker: '',
-      tempTicker: '',
     };
   }
 
@@ -19,7 +18,7 @@ class SearchBox extends Component {
   // searches when user is done typing (wait-time determined by WAIT_INTERVAL)
   handleChange = e => {
     clearTimeout(this.timer)
-    this.setState({ tempTicker: e.target.value });
+    this.setState({ stockTicker: e.target.value });
     this.timer = setTimeout(this.triggerChange, WAIT_INTERVAL);
   }
 
@@ -27,15 +26,14 @@ class SearchBox extends Component {
   handleKeyDown = e => {
     if (e.keyCode === ENTER_KEY) {
       clearTimeout(this.timer)
+      this.setState({ stockTicker: e.target.value });
       this.triggerChange()
     }
   }
 
-  // executes search (just logging to console for now)
+  // executes search
   triggerChange = () => {
-    const { tempTicker } = this.state
-    this.setState({ stockTicker: tempTicker.toUpperCase() });
-    this.props.sendTicker(this.state.stockTicker);
+    this.props.sendTicker(this.state.stockTicker.toUpperCase());   // sending stockTicker to parent component
   }
 
   render(){
