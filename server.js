@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
+var http = require('http');
 
 // Load env
 dotenv.config({ path: './config.env'});
@@ -10,6 +11,12 @@ const app = express();
 // Dev logging
 if(process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
+}
+
+if(process.env.NODE_ENV === 'production') {
+    setInterval(() => {
+        http.get('https://uxstocks.herokuapp.com');
+    }, 600000); // ping every 10 minutes
 }
 
 // Profile routes
