@@ -2,11 +2,15 @@ const express = require('express');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
 var http = require('http');
+const sslRedirect = require('heroku-ssl-redirect');
 
 // Load env
 dotenv.config({ path: './config.env'});
 
 const app = express();
+
+// enable ssl redirect
+app.use(sslRedirect());
 
 // Dev logging
 if(process.env.NODE_ENV === 'development') {
