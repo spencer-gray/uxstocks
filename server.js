@@ -15,7 +15,7 @@ if(process.env.NODE_ENV === 'development') {
 
 if(process.env.NODE_ENV === 'production') {
     setInterval(() => {
-        http.get('https://uxstocks.herokuapp.com');
+        http.get('http://uxstocks.herokuapp.com');
     }, 600000); // ping every 10 minutes
 }
 
