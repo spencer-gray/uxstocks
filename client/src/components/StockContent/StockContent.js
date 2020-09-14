@@ -63,8 +63,13 @@ class StockContent extends Component {
     fetch(`api/v1/stock/${this.props.stockTicker}/news`)
       .then(res => res.json())
       .then(newsData => this.setState({newsData}))
+      .catch( err => {
+        console.log(err);
+        this.setState({stockBookLoaded: false})
+      })
 
-    fetch(`api/v1/stock/${this.props.stockTicker}/financial/income-statement-test`)
+    // fetching income statement dat
+    fetch(`api/v1/stock/${this.props.stockTicker}/financial/income-statement/yearly`)
     .then(res => res.json())
     .then(yearlyIncomeStatementData => this.setState({
       yearlyIncomeStatementData: yearlyIncomeStatementData,
@@ -72,10 +77,11 @@ class StockContent extends Component {
     }))
     .catch( err => {
       console.log(err);
+      this.setState({stockBookLoaded: false})
     })
     
     // fetching quarterly income statement data
-    fetch(`api/v1/stock/${this.props.stockTicker}/financial/income-statement`)
+    fetch(`api/v1/stock/${this.props.stockTicker}/financial/income-statement/quarterly`)
       .then(res => res.json())
       .then(result => this.setState({
         financialChartData: this.setFinancialChartData(
@@ -87,7 +93,10 @@ class StockContent extends Component {
         isLoading: false
         }))
       .catch( err => {
-        this.setState({isLoading: false});
+        this.setState({
+          isLoading: false,
+          stockBookLoaded: false
+        });
         console.log(err);
       })
 
@@ -99,7 +108,10 @@ class StockContent extends Component {
         ratingLoaded: true,
       }))
       .catch( err => {
-        this.setState({ratingLoaded: false});
+        this.setState({
+          ratingLoaded: false,
+          stockBookLoaded: false
+        });
         console.log(err);
       })
   }
@@ -140,7 +152,7 @@ class StockContent extends Component {
 
   render(){
     return (
-      // setup if conditional here, if main data doesn't get loaded, display stock not found page...
+      // Checking for valid data, otherwise prompt user
       this.state.stockBookLoaded ? (
         <div>
           <div className="row1">
@@ -171,7 +183,6 @@ class StockContent extends Component {
                   <PlaceholderImage />
                 ) : null}
               {this.state.ratingLoaded ? (
-                  // <PlaceholderImage />
                   <Ratings ratings={this.state.ratings}/>
                 ) : null}
               {this.state.successfullLoadIncomeState ? (

@@ -2,11 +2,27 @@ const express = require('express');
 const router = express.Router();
 const fetch = require('node-fetch');
 
+// Initial splash page data
+router.get('/landing', async (req, res) => {
+    try {
+        const response = await fetch(`${process.env.IEX_API_URL}/stock/market/batch?symbols=aapl,tm,goos,ge,googl,tu,iii,d&types=quote&token=${process.env.IEX_API_KEY}`)
+
+        const data = await response.json();
+
+        res.json(data);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            message: 'Server error'
+        })
+    }
+});
+
 // Company details and stock price history data
 router.get('/:symbol/:field', async (req, res) => {
     try {
         const { symbol, field } = req.params;
-        const response = await fetch(`${process.env.IEX_API_URL_SAND}/stock/${symbol}/${field}?token=${process.env.IEX_API_KEY_SAND}`)
+        const response = await fetch(`${process.env.IEX_API_URL}/stock/${symbol}/${field}?token=${process.env.IEX_API_KEY}`)
 
         // checking response type for invalid calls (might be fine with the catch, 
         // this gives details on error type for developer)
@@ -56,7 +72,7 @@ router.get('/:symbol/chart2/:startDate/:endDate', async (req, res) => {
 
 
 // Extracting Yearly Income Statement Data with Tiingo api
-router.get('/:symbol/financial/income-statement-test', async (req, res) => {
+router.get('/:symbol/financial/income-statement/yearly', async (req, res) => {
     try {
         const { symbol } = req.params;
         const response = await fetch(`${process.env.TIINGO_API_URL}/fundamentals/${symbol}/statements?token=${process.env.TIINGO_API_KEY}`)
@@ -85,7 +101,27 @@ router.get('/:symbol/financial/income-statement-test', async (req, res) => {
     }
 });
 
-// Extracting Quarterly EPSRevChart Data (Tiingo API Alternative - not complete)
+// Quarterly financial income statement data
+router.get('/:symbol/financial/income-statement/quarterly', async (req, res) => {
+    try {
+        const { symbol } = req.params;
+        const response = await fetch(`${process.env.FINANCIAL_MODELING_API_URL}/financials/income-statement/${symbol}?period=quarter&apikey=${process.env.FINANCIAL_MODELING_API_KEY}`)
+
+        const data = await response.json();
+
+        res.json(data.financials);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            message: 'Server error'
+        })
+    }
+});
+
+
+// ( incomplete )
+
+// Extracting Quarterly EPSRevChart Data (Tiingo API Alternative)
 // router.get('/:symbol/financial/eps', async (req, res) => {
 //     try {
 //         const { symbol } = req.params;
@@ -120,47 +156,12 @@ router.get('/:symbol/financial/income-statement-test', async (req, res) => {
 //     }
 // });
 
-// quarterly financial income statement data
-router.get('/:symbol/financial/income-statement', async (req, res) => {
-    try {
-        const { symbol } = req.params;
-        const response = await fetch(`${process.env.FINANCIAL_MODELING_API_URL}/financials/income-statement/${symbol}?period=quarter&apikey=demo`)
 
-        const data = await response.json();
-
-        res.json(data.financials);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({
-            message: 'Server error'
-        })
-    }
-});
-
-// yearly financial income statement data
-router.get('/:symbol/financial/income-statement/yearly', async (req, res) => {
-    try {
-        const { symbol } = req.params;
-        const response = await fetch(`${process.env.FINANCIAL_MODELING_API_URL}/income-statement/${symbol.toUpperCase()}?period=yearly&apikey=demo`)
-
-        const data = await response.json();
-
-        console.log(response)
-
-        res.json(data.financials[0]);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({
-            message: 'Server error'
-        })
-    }
-});
-
-// retrieving ratings data
+// Retrieving ratings data
 router.get('/:symbol/company/rating', async (req, res) => {
     try {
         const { symbol } = req.params;
-        const response = await fetch(`${process.env.FINANCIAL_MODELING_API_URL}/rating/${symbol.toUpperCase()}?apikey=demo`)
+        const response = await fetch(`${process.env.FINANCIAL_MODELING_API_URL}/rating/${symbol.toUpperCase()}?apikey=${process.env.FINANCIAL_MODELING_API_KEY}`)
 
         const data = await response.json();
 
@@ -174,22 +175,6 @@ router.get('/:symbol/company/rating', async (req, res) => {
             res.json(data);
         }
 
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({
-            message: 'Server error'
-        })
-    }
-});
-
-// initial splash page data
-router.get('/landing', async (req, res) => {
-    try {
-        const response = await fetch(`${process.env.IEX_API_URL_SAND}/stock/market/batch?symbols=aapl,tm,goos,ge,googl,tu,iii,d&types=quote&token=${process.env.IEX_API_KEY_SAND}`)
-
-        const data = await response.json();
-
-        res.json(data);
     } catch (err) {
         console.error(err);
         res.status(500).json({
