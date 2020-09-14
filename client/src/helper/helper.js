@@ -76,4 +76,13 @@ const quarters = ['Q1', 'Q2', 'Q3', 'Q4']
 export const dateToQuarter = (date) => {
   	var month = date.slice(5, 7)
     return quarters[(Math.ceil(month / 3))-1] + ' ' + date.slice(0, 4);
-  }
+}
+
+export function extractValueFromKey(arr, key) {
+    for (var i=0; i<arr.length; i++) {
+        if (arr[i]['dataCode'] === key) {
+            return arr[i]['value'];
+        }
+    }
+    return "Null"
+}

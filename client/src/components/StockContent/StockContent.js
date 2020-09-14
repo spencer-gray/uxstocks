@@ -20,19 +20,10 @@ class StockContent extends Component {
       newsData: [],
       yearlyIncomeStatementData: {},
       keyStats: {},
-      ratings: {
-        rating: {},
-        ratingDetails: {
-          'P/B': {},
-          'ROA': {},
-          'DCF': {},
-          'P/E': {},
-          'ROE': {},
-          'D/E': {}
-        }
-      },
+      ratings: {},
       isLoading: true,
       successfullLoad: false,
+      successfullLoadIncomeState: false,
       ratingLoaded: false,
       stockBookLoaded: false,
       stockBook: {
@@ -73,13 +64,15 @@ class StockContent extends Component {
       .then(res => res.json())
       .then(newsData => this.setState({newsData}))
 
-    // fetching yearly income statement data
-    fetch(`api/v1/stock/${this.props.stockTicker}/financial/income-statement/yearly`)
-      .then(res => res.json())
-      .then(yearlyIncomeStatementData => this.setState({yearlyIncomeStatementData}))
-      .catch( err => {
-        console.log(err);
-      })
+    fetch(`api/v1/stock/${this.props.stockTicker}/financial/income-statement-test`)
+    .then(res => res.json())
+    .then(yearlyIncomeStatementData => this.setState({
+      yearlyIncomeStatementData: yearlyIncomeStatementData,
+      successfullLoadIncomeState: true,
+    }))
+    .catch( err => {
+      console.log(err);
+    })
     
     // fetching quarterly income statement data
     fetch(`api/v1/stock/${this.props.stockTicker}/financial/income-statement`)
@@ -98,45 +91,16 @@ class StockContent extends Component {
         console.log(err);
       })
 
-    // fetching yearly keys statistics
-    fetch(`api/v1/stock/${this.props.stockTicker}/financial/key-stats`)
-      .then(res => res.json())
-      .then(keyStats => this.setState({keyStats}))
-      .catch( err => {
-        // Rating data not found
-        //console.log(err);
-      })
-
     // fetching rating data
     fetch(`api/v1/stock/${this.props.stockTicker}/company/rating`)
-      .then(res => {
-        if(!res.ok) {
-          // reset rating data ()
-          this.setState({
-            ratingLoaded: false,
-            ratings: {
-              rating: {},
-              ratingDetails: {
-                'P/B': {},
-                'ROA': {},
-                'DCF': {},
-                'P/E': {},
-                'ROE': {},
-                'D/E': {}
-              }
-            }
-          })
-          throw new Error(res.status);
-        }
-        else return res.json();
-      })
+      .then(res => res.json())
       .then(ratings => this.setState({
-        ratings: ratings,
-        ratingLoaded: true
+        ratings: ratings[0],
+        ratingLoaded: true,
       }))
       .catch( err => {
-          // Rating data not found
-          //console.log(err);
+        this.setState({ratingLoaded: false});
+        console.log(err);
       })
   }
 
@@ -207,9 +171,10 @@ class StockContent extends Component {
                   <PlaceholderImage />
                 ) : null}
               {this.state.ratingLoaded ? (
+                  // <PlaceholderImage />
                   <Ratings ratings={this.state.ratings}/>
                 ) : null}
-              {this.state.successfullLoad ? (
+              {this.state.successfullLoadIncomeState ? (
                   <IncomeStatement yearlyIncomeStatementData={this.state.yearlyIncomeStatementData} keyStats={this.state.keyStats}/>
                 ) : null}
             </div>

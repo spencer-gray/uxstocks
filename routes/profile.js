@@ -6,7 +6,7 @@ const fetch = require('node-fetch');
 router.get('/:symbol/:field', async (req, res) => {
     try {
         const { symbol, field } = req.params;
-        const response = await fetch(`${process.env.IEX_API_URL}/stock/${symbol}/${field}?token=${process.env.IEX_API_KEY}`)
+        const response = await fetch(`${process.env.IEX_API_URL_SAND}/stock/${symbol}/${field}?token=${process.env.IEX_API_KEY_SAND}`)
 
         // checking response type for invalid calls (might be fine with the catch, 
         // this gives details on error type for developer)
@@ -54,11 +54,77 @@ router.get('/:symbol/chart2/:startDate/:endDate', async (req, res) => {
     }
 });
 
+
+// Extracting Yearly Income Statement Data with Tiingo api
+router.get('/:symbol/financial/income-statement-test', async (req, res) => {
+    try {
+        const { symbol } = req.params;
+        const response = await fetch(`${process.env.TIINGO_API_URL}/fundamentals/${symbol}/statements?token=${process.env.TIINGO_API_KEY}`)
+        
+        if (response.status == 404) {
+            return res.status(404).json({
+                message: 'Stock Not Found'
+            })
+        } else  {
+            const data = await response.json();
+
+            // Find latest yearly report (quarter = 0)
+            for (i=data.length-1; i >= 0; i--) {
+                if (data[i].quarter == 0) {
+                    result = data[i]
+                }
+            }
+
+            res.json(result);
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            message: 'Server error'
+        })
+    }
+});
+
+// Extracting Quarterly EPSRevChart Data (Tiingo API Alternative - not complete)
+// router.get('/:symbol/financial/eps', async (req, res) => {
+//     try {
+//         const { symbol } = req.params;
+//         const response = await fetch(`${process.env.TIINGO_API_URL}/fundamentals/${symbol}/statements?token=${process.env.TIINGO_API_KEY}`)
+        
+//         if (response.status == 404) {
+//             return res.status(404).json({
+//                 message: 'Stock Not Found'
+//             })
+//         } else  {
+//             const data = await response.json();
+
+//             var result = [];
+
+//             var n = 4
+//             // Sort By Financial Quarter
+//             for (i=0; i < n; i++) {
+//                 if (data[i].quarter === "0") {
+//                     n++;
+//                 } else {
+//                     result.push(data[i]);
+//                 }
+//             }
+
+//             res.json(result);
+//         }
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).json({
+//             message: 'Server error'
+//         })
+//     }
+// });
+
 // quarterly financial income statement data
 router.get('/:symbol/financial/income-statement', async (req, res) => {
     try {
         const { symbol } = req.params;
-        const response = await fetch(`${process.env.FINANCIAL_MODELING_API_URL}/financials/income-statement/${symbol}?period=quarter`)
+        const response = await fetch(`${process.env.FINANCIAL_MODELING_API_URL}/financials/income-statement/${symbol}?period=quarter&apikey=demo`)
 
         const data = await response.json();
 
@@ -75,28 +141,13 @@ router.get('/:symbol/financial/income-statement', async (req, res) => {
 router.get('/:symbol/financial/income-statement/yearly', async (req, res) => {
     try {
         const { symbol } = req.params;
-        const response = await fetch(`${process.env.FINANCIAL_MODELING_API_URL}/financials/income-statement/${symbol}`)
+        const response = await fetch(`${process.env.FINANCIAL_MODELING_API_URL}/income-statement/${symbol.toUpperCase()}?period=yearly&apikey=demo`)
 
         const data = await response.json();
+
+        console.log(response)
 
         res.json(data.financials[0]);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({
-            message: 'Server error'
-        })
-    }
-});
-
-// yearly key statistics
-router.get('/:symbol/financial/key-stats', async (req, res) => {
-    try {
-        const { symbol } = req.params;
-        const response = await fetch(`${process.env.FINANCIAL_MODELING_API_URL}/company-key-metrics/${symbol}`)
-
-        const data = await response.json();
-
-        res.json(data.metrics[0]);
     } catch (err) {
         console.error(err);
         res.status(500).json({
@@ -109,7 +160,7 @@ router.get('/:symbol/financial/key-stats', async (req, res) => {
 router.get('/:symbol/company/rating', async (req, res) => {
     try {
         const { symbol } = req.params;
-        const response = await fetch(`${process.env.FINANCIAL_MODELING_API_URL}/company/rating/${symbol}`)
+        const response = await fetch(`${process.env.FINANCIAL_MODELING_API_URL}/rating/${symbol.toUpperCase()}?apikey=demo`)
 
         const data = await response.json();
 
@@ -134,7 +185,7 @@ router.get('/:symbol/company/rating', async (req, res) => {
 // initial splash page data
 router.get('/landing', async (req, res) => {
     try {
-        const response = await fetch(`${process.env.IEX_API_URL}/stock/market/batch?symbols=aapl,tm,goos,ge,googl,tu,iii,d&types=quote&token=${process.env.IEX_API_KEY}`)
+        const response = await fetch(`${process.env.IEX_API_URL_SAND}/stock/market/batch?symbols=aapl,tm,goos,ge,googl,tu,iii,d&types=quote&token=${process.env.IEX_API_KEY_SAND}`)
 
         const data = await response.json();
 

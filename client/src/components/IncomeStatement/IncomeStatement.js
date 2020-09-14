@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './IncomeStatement.css'
-import { formatLargeToShortForm} from '../../helper/helper.js';  
+import { formatLargeToShortForm, extractValueFromKey } from '../../helper/helper.js';  
 
 class IncomeStatement extends Component {
     render(){
@@ -8,44 +8,44 @@ class IncomeStatement extends Component {
             <div className='card card-incomeInfo'>
                 <div className='IncomeInfo'>
                     <div className='income-header'>
-                        <p id='title'>Fiscal Year Key Statistics</p>
+                        <p id='title'>Income Statement</p>
                     </div>
                     <div className="income-details">
-                        <div className="income-row">
-                            <p className="income-details-head">Revenue</p>
-                            <p className="income-details-data">${formatLargeToShortForm(parseInt(this.props.yearlyIncomeStatementData.Revenue)).toString()}</p>
+                    <div className="income-row">
+                            <p className="income-details-head">Year</p>
+                            <p className="income-details-data">{this.props.yearlyIncomeStatementData.year.toString()}</p>
                         </div>
                         <div className="income-row">
-                            <p className="income-details-head">Revenue Growth</p>
-                            <p className="income-details-data">{(parseFloat(this.props.yearlyIncomeStatementData["Revenue Growth"])*100).toFixed(2).toString()}%</p>
+                            <p className="income-details-head">Revenue</p>
+                            <p className="income-details-data">${formatLargeToShortForm(parseInt(extractValueFromKey(this.props.yearlyIncomeStatementData.statementData.incomeStatement, "revenue"))).toString()}</p>
+                        </div>
+                        <div className="income-row">
+                            <p className="income-details-head">Net Income</p>
+                            <p className="income-details-data">{formatLargeToShortForm(parseInt(extractValueFromKey(this.props.yearlyIncomeStatementData.statementData.incomeStatement, "netinc"))).toString()}</p>
                         </div>
                         <div className="income-row">
                             <p className="income-details-head">Gross Profit</p>
-                            <p className="income-details-data">${formatLargeToShortForm(parseInt(this.props.yearlyIncomeStatementData["Gross Profit"])).toString()}</p>
-                        </div>
-                        <div className="income-row">
-                            <p className="income-details-head">Gross Margin</p>
-                            <p className="income-details-data">{this.props.yearlyIncomeStatementData["Gross Margin"]}</p>
+                            <p className="income-details-data">${formatLargeToShortForm(parseInt(extractValueFromKey(this.props.yearlyIncomeStatementData.statementData.incomeStatement, "grossProfit"))).toString()}</p>
                         </div>
                         <div className="income-row">
                             <p className="income-details-head">EBITDA</p>
-                            <p className="income-details-data">${formatLargeToShortForm(parseInt(this.props.yearlyIncomeStatementData.EBITDA)).toString()}</p>
+                            <p className="income-details-data">${formatLargeToShortForm(parseInt(extractValueFromKey(this.props.yearlyIncomeStatementData.statementData.incomeStatement, "ebitda"))).toString()}</p>
                         </div>
                         <div className="income-row">
-                            <p className="income-details-head">Enterprise Value</p>
-                            <p className="income-details-data">${formatLargeToShortForm(parseInt(this.props.keyStats["Enterprise Value"])).toString()}</p>
+                            <p className="income-details-head">Consolidated Income</p>
+                            <p className="income-details-data">${formatLargeToShortForm(parseInt(extractValueFromKey(this.props.yearlyIncomeStatementData.statementData.incomeStatement, "consolidatedIncome"))).toString()}</p>
                         </div>
                         <div className="income-row">
-                            <p className="income-details-head">Revenue Per Share</p>
-                            <p className="income-details-data">${formatLargeToShortForm(parseFloat(this.props.keyStats["Revenue per Share"]).toFixed(2)).toString()}</p>
+                            <p className="income-details-head">EPS</p>
+                            <p className="income-details-data">${extractValueFromKey(this.props.yearlyIncomeStatementData.statementData.incomeStatement, "eps").toString()}</p>
                         </div>
                         <div className="income-row">
                             <p className="income-details-head">Debt to Equity</p>
-                            <p className="income-details-data">{this.props.keyStats["Debt to Equity"]}</p>
+                            <p className="income-details-data">{(parseInt(extractValueFromKey(this.props.yearlyIncomeStatementData.statementData.balanceSheet, "debt")) / parseInt(extractValueFromKey(this.props.yearlyIncomeStatementData.statementData.balanceSheet, "equity"))).toFixed(2).toString()}</p>
                         </div>
                         <div className="income-row">
-                            <p className="income-details-head">Profit Margin</p>
-                            <p className="income-details-data">{this.props.yearlyIncomeStatementData["Profit Margin"]}</p>
+                            <p className="income-details-head">Research and Development</p>
+                            <p className="income-details-data">{formatLargeToShortForm(parseInt(extractValueFromKey(this.props.yearlyIncomeStatementData.statementData.incomeStatement, "rnd"))).toString()}</p>
                         </div>
                     </div>
                 </div>
